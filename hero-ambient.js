@@ -84,3 +84,35 @@ const words = [
     }
   }
   
+  (() => {
+    const toggle = document.querySelector(".nav-toggle");
+    const overlay = document.querySelector(".nav-overlay");
+    const body = document.body;
+  
+    if (!toggle || !overlay) return;
+  
+    const openMenu = () => {
+      body.classList.add("nav-open");
+      toggle.setAttribute("aria-expanded", "true");
+    };
+  
+    const closeMenu = () => {
+      body.classList.remove("nav-open");
+      toggle.setAttribute("aria-expanded", "false");
+    };
+  
+    toggle.addEventListener("click", () => {
+      body.classList.contains("nav-open") ? closeMenu() : openMenu();
+    });
+  
+    overlay.addEventListener("click", closeMenu);
+  
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape") closeMenu();
+    });
+  
+    document.querySelectorAll(".mobile-nav a").forEach(link =>
+      link.addEventListener("click", closeMenu)
+    );
+  })();
+  
